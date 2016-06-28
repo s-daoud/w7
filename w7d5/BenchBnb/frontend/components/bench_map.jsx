@@ -1,5 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const hashHistory = require('react-router').hashHistory;
 
 const BenchStore = require('../stores/bench_store');
 const BenchActions = require('../actions/bench_actions');
@@ -14,7 +15,17 @@ const BenchMap = React.createClass({
     };
     this.map = new google.maps.Map(mapDOMNode, mapOptions);
     this.markers = {};
+    this.map.addListener('click', this.makeForm);
     this.idler();
+  },
+  makeForm(e){
+    let lat = e.latLng.lat();
+    let lng = e.latLng.lng();
+    let coords = {lat: lat, lng: lng};
+    hashHistory.push({
+      pathname: "benches/new",
+      query: coords
+    });
   },
   idler(){
     google.maps.event.addListener(this.map, 'idle', () => {

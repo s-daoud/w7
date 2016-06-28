@@ -5,8 +5,17 @@
     <title>BenchBnb</title>
   </head>
   <body>
+    <script type="text/javascript">
+      <% if current_user %>
+        window.currentUser = <%= render("api/users/user.json.jbuilder",
+                                      user: current_user).html_safe %>
+      <% else %>
+        window.currentUser = {}
+      <% end %>
+    </script>
+
     <div class="header">
-      <div class="logo">BenchBnb</div>
+      <div class="logo"><a href="/">BenchBnb</a></div>
       <div class="menu">Rent a bench now!</div>
     </div>
     <div id="content">

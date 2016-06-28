@@ -7,5 +7,15 @@ module.exports = {
         callback(response);
       }
     });
+  },
+  createBench(callback, bench){
+    $.ajax({
+      url: "/api/benches",
+      method: "POST",
+      data: {bench: bench},
+      success(response) {
+        callback(response);
+      }
+    });
   }
 };

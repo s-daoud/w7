@@ -8,17 +8,20 @@ const BenchIndex = React.createClass({
     return {benches: BenchStore.all()};
   },
   componentDidMount(){
-    BenchStore.addListener(this._onChange);
+    this.token = BenchStore.addListener(this._onChange);
   },
   _onChange(){
     this.setState({benches: BenchStore.all()});
+  },
+  componentWillUnmount(){
+    this.token.remove();
   },
   render(){
     return(
       <div className="benches">
         {
           this.state.benches.map( bench => {
-            return ( <BenchIndexItem bench={bench} key={bench.id} /> );
+            return ( <BenchIndexItem bench={bench} key={bench.id} className="bench"/> );
           })
         }
       </div>
